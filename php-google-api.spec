@@ -14,6 +14,7 @@ Source0:	https://google-api-php-client.googlecode.com/files/google-api-php-clien
 URL:		https://code.google.com/p/google-api-php-client/
 BuildRequires:	rpm-php-pearprov >= 4.4.2-11
 BuildRequires:	rpmbuild(macros) >= 1.461
+BuildRequires:	sed >= 4.0
 Requires:	php-common >= 4:%{php_min_version}
 Requires:	php-curl
 Requires:	php-date
@@ -36,6 +37,15 @@ Latitude on your server.
 %prep
 %setup -qc
 mv google-api-php-client/* .
+
+grep -rl require_once examples | xargs %{__sed} -i -e '
+	# fixup paths to source
+	/require_once/ s,\.\./\.\./src/,google-api/,
+	/require_once/ s,\.\./src/,google-api/,
+
+	# lower php requirement to 5.2
+	s,__DIR__,dirname(__FILE__),
+'
 
 %install
 rm -rf $RPM_BUILD_ROOT
