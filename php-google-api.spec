@@ -1,7 +1,7 @@
 # TODO
 # - make it possible to use user config (via local_config.php path)
 
-%define		php_min_version 5.2.0
+%define		php_min_version 5.2.2
 %include	/usr/lib/rpm/macros.php
 Summary:	Google APIs Client Library for PHP
 Name:		php-google-api
