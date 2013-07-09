@@ -12,6 +12,7 @@ Group:		Development/Languages/PHP
 Source0:	https://google-api-php-client.googlecode.com/files/google-api-php-client-%{version}.tar.gz
 # Source0-md5:	86db4e431096c9c32637842e214c6e26
 Patch0:		php52.patch
+Patch1:		gapi.patch
 URL:		https://code.google.com/p/google-api-php-client/
 BuildRequires:	rpm-php-pearprov >= 4.4.2-11
 BuildRequires:	rpmbuild(macros) >= 1.461
@@ -23,6 +24,7 @@ Requires:	php-hash
 Requires:	php-json
 Requires:	php-openssl
 Requires:	php-pcre
+Suggests:	php-seclib
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -39,6 +41,7 @@ Latitude on your server.
 %setup -qc
 mv google-api-php-client/* .
 %patch0 -p1
+%patch1 -p8
 
 grep -rl require_once examples | xargs %{__sed} -i -e '
 	# fixup paths to source
