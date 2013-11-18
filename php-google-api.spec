@@ -5,12 +5,12 @@
 %include	/usr/lib/rpm/macros.php
 Summary:	Google APIs Client Library for PHP
 Name:		php-google-api
-Version:	0.6.2
+Version:	0.6.7
 Release:	1
 License:	Apache v2.0
 Group:		Development/Languages/PHP
 Source0:	https://google-api-php-client.googlecode.com/files/google-api-php-client-%{version}.tar.gz
-# Source0-md5:	86db4e431096c9c32637842e214c6e26
+# Source0-md5:	4ea330e08f91963b7b78fab25314abee
 Patch0:		php52.patch
 Patch1:		gapi.patch
 URL:		https://code.google.com/p/google-api-php-client/
