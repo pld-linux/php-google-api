@@ -6,7 +6,7 @@
 Summary:	Google APIs Client Library for PHP
 Name:		php-google-api
 Version:	0.6.7
-Release:	1
+Release:	2
 License:	Apache v2.0
 Group:		Development/Languages/PHP
 Source0:	https://google-api-php-client.googlecode.com/files/google-api-php-client-%{version}.tar.gz
@@ -17,13 +17,13 @@ URL:		https://code.google.com/p/google-api-php-client/
 BuildRequires:	rpm-php-pearprov >= 4.4.2-11
 BuildRequires:	rpmbuild(macros) >= 1.461
 BuildRequires:	sed >= 4.0
-Requires:	php-common >= 4:%{php_min_version}
-Requires:	php-curl
-Requires:	php-date
-Requires:	php-hash
-Requires:	php-json
-Requires:	php-openssl
-Requires:	php-pcre
+Requires:	php(core) >= %{php_min_version}
+Requires:	php(curl)
+Requires:	php(date)
+Requires:	php(hash)
+Requires:	php(json)
+Requires:	php(openssl)
+Requires:	php(pcre)
 Suggests:	php-seclib
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
