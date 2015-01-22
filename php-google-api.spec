@@ -43,6 +43,7 @@ simple, flexible, powerful API access.
 
 # use single autoload so could use different autoloader than provided by this project
 # you intend to use this, you need to call it before accessing other classes
+# this is also addressed upstream: https://github.com/google/google-api-php-client/issues/400
 mv autoload.php src/Google
 grep -r 'require_once.*autoload.php' src -l | xargs %{__sed} -i -e '/require_once.*autoload.php/d'
 
