@@ -1,0 +1,12 @@
+--- google-api-php-client-1.1.2/autoload.php	2015-01-23 00:06:59.492462347 +0200
++++ google-api-php-client-1.1.2/autoload.php	2015-01-23 00:06:59.492462347 +0200
+@@ -24,7 +24,8 @@
+     // Maximum class file path depth in this project is 3.
+     $classPath = array_slice($classPath, 0, 3);
+   }
+-  $filePath = dirname(__FILE__) . '/src/' . implode('/', $classPath) . '.php';
++  array_shift($classPath);
++  $filePath = dirname(__FILE__) . '/' . implode('/', $classPath) . '.php';
+   if (file_exists($filePath)) {
+     require_once($filePath);
+   }

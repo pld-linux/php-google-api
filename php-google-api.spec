@@ -3,13 +3,14 @@
 Summary:	Google APIs Client Library for PHP
 Name:		php-google-api
 Version:	1.1.2
-Release:	0.2
+Release:	0.5
 License:	Apache v2.0
 Group:		Development/Languages/PHP
 Source0:	https://github.com/google/google-api-php-client/archive/%{version}/google-api-php-client-%{version}.tar.gz
 # Source0-md5:	44f2252aa279364236823fb3fc129d53
 Patch0:		php52.patch
 Patch1:		gapi.patch
+Patch2:		autoload.patch
 URL:		https://developers.google.com/api-client-library/php/
 BuildRequires:	rpm-php-pearprov >= 4.4.2-11
 BuildRequires:	rpmbuild(macros) >= 1.461
@@ -38,6 +39,17 @@ simple, flexible, powerful API access.
 %setup -qn google-api-php-client-%{version}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
+
+# use single autoload so could use different autoloader than provided by this project
+# you intend to use this, you need to call it before accessing other classes
+mv autoload.php src/Google
+grep -r 'require_once.*autoload.php' src -l | xargs %{__sed} -i -e '/require_once.*autoload.php/d'
+
+# fixup paths in examples
+grep -r 'require_once.*autoload.php' examples -l | xargs %{__sed} -i -e "
+	s,realpath(dirname(__FILE__) . '/../autoload.php'),'Google/autoload.php',
+"
 
 %install
 rm -rf $RPM_BUILD_ROOT
