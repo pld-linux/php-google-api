@@ -1,13 +1,14 @@
---- php-google-api-0.6.1/src/auth/Google_P12Signer.php~	2013-02-28 06:07:44.000000000 +0200
-+++ php-google-api-0.6.1/src/auth/Google_P12Signer.php	2013-07-03 10:20:01.936330882 +0300
-@@ -58,10 +58,6 @@
-   }
+--- google-api-php-client-1.1.2/src/Google/Signer/P12.php~	2014-11-25 16:35:03.000000000 +0200
++++ google-api-php-client-1.1.2/src/Google/Signer/P12.php	2015-01-22 23:49:13.673899323 +0200
+@@ -76,11 +76,6 @@
  
-   function sign($data) {
--    if(version_compare(PHP_VERSION, '5.3.0') < 0) {
--      throw new Google_AuthException(
--        "PHP 5.3.0 or higher is required to use service accounts.");
+   public function sign($data)
+   {
+-    if (version_compare(PHP_VERSION, '5.3.0') < 0) {
+-      throw new Google_Auth_Exception(
+-          "PHP 5.3.0 or higher is required to use service accounts."
+-      );
 -    }
-     if (!openssl_sign($data, $signature, $this->privateKey, "sha256")) {
-       throw new Google_AuthException("Unable to sign data");
-     }
+     $hash = defined("OPENSSL_ALGO_SHA256") ? OPENSSL_ALGO_SHA256 : "sha256";
+     if (!openssl_sign($data, $signature, $this->privateKey, $hash)) {
+       throw new Google_Auth_Exception("Unable to sign data");

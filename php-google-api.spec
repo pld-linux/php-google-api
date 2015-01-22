@@ -1,19 +1,16 @@
-# TODO
-# - make it possible to use user config (via local_config.php path)
-
 %define		php_min_version 5.2.2
 %include	/usr/lib/rpm/macros.php
 Summary:	Google APIs Client Library for PHP
 Name:		php-google-api
-Version:	0.6.7
-Release:	2
+Version:	1.1.2
+Release:	0.2
 License:	Apache v2.0
 Group:		Development/Languages/PHP
-Source0:	https://google-api-php-client.googlecode.com/files/google-api-php-client-%{version}.tar.gz
-# Source0-md5:	4ea330e08f91963b7b78fab25314abee
+Source0:	https://github.com/google/google-api-php-client/archive/%{version}/google-api-php-client-%{version}.tar.gz
+# Source0-md5:	44f2252aa279364236823fb3fc129d53
 Patch0:		php52.patch
 Patch1:		gapi.patch
-URL:		https://code.google.com/p/google-api-php-client/
+URL:		https://developers.google.com/api-client-library/php/
 BuildRequires:	rpm-php-pearprov >= 4.4.2-11
 BuildRequires:	rpmbuild(macros) >= 1.461
 BuildRequires:	sed >= 4.0
@@ -33,29 +30,19 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_noautoreq	%{?_noautophpreq} %{?_noautopear}
 
 %description
-The Google API Client Library enables you to work with Google APIs
-such as Analytics, Adsense, Google+, Calendar, Moderator, Tasks, or
-Latitude on your server.
+Google APIs Client Library for PHP provides access to many Google
+APIs. It is designed for PHP client-application developers and offers
+simple, flexible, powerful API access.
 
 %prep
-%setup -qc
-mv google-api-php-client/* .
+%setup -qn google-api-php-client-%{version}
 %patch0 -p1
-%patch1 -p8
-
-grep -rl require_once examples | xargs %{__sed} -i -e '
-	# fixup paths to source
-	/require_once/ s,\.\./\.\./src/,google-api/,
-	/require_once/ s,\.\./src/,google-api/,
-
-	# lower php requirement to 5.2
-	s,__DIR__,dirname(__FILE__),
-'
+%patch1 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_appdir}
-cp -a src/* $RPM_BUILD_ROOT%{_appdir}
+install -d $RPM_BUILD_ROOT%{php_data_dir}
+cp -a src/* $RPM_BUILD_ROOT%{php_data_dir}
 
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -a examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
@@ -65,6 +52,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc NOTICE README
-%{_appdir}
+%doc README.md CONTRIBUTING.md
+%{php_data_dir}/Google
 %{_examplesdir}/%{name}-%{version}
