@@ -1,5 +1,4 @@
 %define		php_min_version 5.2.2
-%include	/usr/lib/rpm/macros.php
 Summary:	Google APIs Client Library for PHP
 Name:		php-google-api
 Version:	1.1.2
