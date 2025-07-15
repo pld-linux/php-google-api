@@ -36,9 +36,9 @@ simple, flexible, powerful API access.
 
 %prep
 %setup -qn google-api-php-client-%{version}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
 
 # use single autoload so could use different autoloader than provided by this project
 # you intend to use this, you need to call it before accessing other classes
